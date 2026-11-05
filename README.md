@@ -14,9 +14,13 @@ No framework, package manager, architecture, CI system, or application entry poi
 
 ## Requirements
 
-Install and make these commands available on `PATH`:
+Install these tools. `dev-env init` installs the Mise-managed ones; the commands
+below assume the tools are available on `PATH` unless noted otherwise.
 
-- `opencode` 1.x
+- `opencode` 1.x — `dev-env init` installs it through Mise as `npm:opencode-ai`,
+  including the `allow_builds` setting required by its postinstall step. For a
+  manual setup, install OpenCode 1.x yourself and make `opencode` available on
+  `PATH` (or run it through `mise exec -- opencode ...`).
 - `serena`
 - `uvx`
 - `pyright-langserver` (or adjust/remove the Pyright LSP entry if you use another installation)
@@ -53,9 +57,19 @@ The global config already has Context7 in the setup described when this template
 From the project root:
 
 ```bash
-opencode --version
-opencode mcp list
-opencode models
+mise exec -- opencode --version
+mise exec -- opencode mcp list
+mise exec -- opencode models
+```
+
+Or, if OpenCode is already on `PATH`, omit `mise exec --`.
+
+In a project initialized by `dev-env`, a `serve` task runs OpenCode without the
+TUI (for example, for a bot that uses its HTTP API):
+
+```bash
+mise run serve                    # http://127.0.0.1:4096
+OPENCODE_PORT=4099 mise run serve # custom port
 ```
 
 Then open the project in OpenCode and verify that:
