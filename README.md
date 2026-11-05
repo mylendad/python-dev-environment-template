@@ -72,6 +72,10 @@ mise run serve                    # http://127.0.0.1:4096
 OPENCODE_PORT=4099 mise run serve # custom port
 ```
 
+The generated `opencode` and `serve` tasks prepend `~/.local/bin` to `PATH`, so
+a Serena installed with `uv tool install` is found even when OpenCode is started
+by a service manager with a minimal environment.
+
 Then open the project in OpenCode and verify that:
 - Serena and Semble connect;
 - Context7 is available from the global config;
